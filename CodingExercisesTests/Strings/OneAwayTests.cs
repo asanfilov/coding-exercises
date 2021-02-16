@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace CodingExercises.Tests
+namespace CodingExercises.Strings.Tests
 {
     [TestFixture()]
     public class OneAwayTests
