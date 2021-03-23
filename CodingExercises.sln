@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodingExercises", "CodingExercises\CodingExercises.csproj", "{43BCC986-1C2C-4120-9C62-14DD29266B90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodingExercisesTests", "CodingExercisesTests\CodingExercisesTests.csproj", "{7E641647-428F-4FBC-A48F-4DD4828BA21B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodingExercisesTests", "CodingExercisesTests\CodingExercisesTests.csproj", "{7E641647-428F-4FBC-A48F-4DD4828BA21B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviews", "Interviews\Interviews.csproj", "{BA74250D-23E3-4D4D-9A46-1A1AA2C7DD0E}"
 EndProject

@@ -5,35 +5,51 @@ namespace CodingExercises.Arrays.Tests
     [TestFixture()]
     public class SquareMatrixTransformerTests
     {
-        [Test()]
-        public void CreateSquareMatrixTest()
-        {
-            var matrix = SquareMatrixTransformer.CreateSquareMatrix(4);
-            Assert.AreEqual(matrix4, matrix);
-        }
-
-        [Test()]
-        public void CreateSquareMatrixRotatedRightTest()
-        {
-            var matrix = SquareMatrixTransformer.CreateSquareMatrixRotatedRight(5);
-            Assert.AreEqual(matrix5RotatedRight, matrix);
-        }
+        private SquareMatrixTransformer smt = new SquareMatrixTransformer();
 
         [Test()]
         public void RotateRight_Matrix5()
         {
-            SquareMatrixTransformer smt = new SquareMatrixTransformer();
-            smt.RotateRight(matrix5, 5);
-            Assert.AreEqual(matrix5RotatedRight, matrix5);
+            smt.RotateRight( matrix5, 5 );
+            Assert.AreEqual( matrix5RotatedRight, matrix5 );
         }
 
         [Test()]
         public void RotateRight_Matrix4()
         {
-            SquareMatrixTransformer smt = new SquareMatrixTransformer();
-            smt.RotateRight(matrix4, 4);
-            Assert.AreEqual(matrix4RotatedRight, matrix4);
+            smt.RotateRight( matrix4, 4 );
+            Assert.AreEqual( matrix4RotatedRight, matrix4 );
         }
+
+        [TestCase( 13 )]
+        [TestCase( 12 )]
+        public void RotateRight_Matrix(int size)
+        {
+            var matrix = SquareMatrixTransformer.CreateSquareMatrix( size );
+            var matrixRotated = SquareMatrixTransformer.CreateSquareMatrixRotatedRight( size );
+
+            smt.RotateRight( matrix, size );
+            Assert.AreEqual( matrixRotated, matrix );
+        }
+
+        [Test()]
+        public void RotateRight_Matrix3()
+        {
+            smt.RotateRight( matrix3, 3 );
+            Assert.AreEqual( matrix3RotatedRight, matrix3 );
+        }
+
+        private int[,] matrix3 = new int[3, 3] {
+            {  1,  2,  3 },
+            {  5,  6,  7 },
+            {  9, 10, 11 }
+        };
+
+        private int[,] matrix3RotatedRight = new int[3, 3] {
+            {  9,  5,  1 },
+            {  10,  6,  2 },
+            {  11,  7,  3 }
+        };
 
         private int[,] matrix5 = new int[5, 5] {
             {  1,  2,  3,  4,  5 },

@@ -5,4 +5,8 @@
     <RootNamespace>CodingExercises</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.13.0" />
+  </ItemGroup>
+
 </Project>

@@ -4,59 +4,67 @@
     {
         public void RotateRight(int[,] matrix, int size)
         {
-            int squares = size / 2;
-            int shift = size - 1;
-            for (int square = 0; square < squares; square++)
+            int innerSquares = size / 2;
+            int elementShift = size - 1;
+            for (int squareId = 0 ; squareId < innerSquares ; squareId++)
             {
-                RotateSquareRight(square, shift, matrix);
-                shift = shift - 2;
+                RotateSquareRight( squareId, elementShift, matrix );
+                elementShift -= 2;
             }
         }
 
-        private void RotateSquareRight(int square, int shift, int[,] matrix)
+        private void RotateSquareRight(int squareId, int elementShift, int[,] matrix)
         {
-            int startRow = square;
-            int startCol = square;
-            for (int col = startCol; col < shift + startCol; col++)
+            int topLeftIndex = squareId;
+            int bottomRightindex = squareId + elementShift;
+            for (int column = topLeftIndex ; column < bottomRightindex ; column++)
             {
-                ShiftElementsRight(startRow, col, shift, matrix);
+                ShiftElementsRight( topLeftIndex, column, elementShift, matrix );
             }
         }
 
-        private void ShiftElementsRight(int startRow, int col, int shift, int[,] matrix)
+        private void ShiftElementsRight(int topLeftIndex, int column, int elementShift, int[,] matrix)
         {
-            int nv = matrix[startRow, col];
+            int bottomRightindex = topLeftIndex + elementShift;
 
-            int ovRow = startRow + col;
-            int ovCol = shift;
-            nv = Shift(nv, ovRow, ovCol, matrix);
-            // step 2.
-            ovRow = shift;
-            ovCol = ovCol - col;
-            nv = Shift(nv, ovRow, ovCol, matrix);
-            //step 3.
-            ovCol = ovCol - shift + col;
-            ovRow = ovRow - col;
-            nv = Shift(nv, ovRow, ovCol, matrix);
-            //step 4.
-            ovRow = ovRow - shift + col;
-            ovCol = col;
-            nv = Shift(nv, ovRow, ovCol, matrix);
+            int valueMoved = matrix[topLeftIndex, column];
+
+            // step 1: top row becomes last column. All elements in the row will have the same column index:
+            int moveToColumn = bottomRightindex;
+            // Old column index becomes new row index in the last column:
+            int moveToRow = column;
+            valueMoved = Shift( valueMoved, moveToRow, moveToColumn, matrix );
+
+            // step 2: last column rotates to last row. Element with the last column index moves to the first position in the row
+            moveToRow = bottomRightindex;
+            // New column in this inner square is relative. Use 0-based indexing:
+            moveToColumn = bottomRightindex - (column - topLeftIndex);
+            valueMoved = Shift( valueMoved, moveToRow, moveToColumn, matrix );
+
+            // step 3: last row rotates to first column
+            moveToRow = moveToColumn;
+            moveToColumn = topLeftIndex;
+            valueMoved = Shift( valueMoved, moveToRow, moveToColumn, matrix );
+
+            // step 4: first column rotates to first row
+            moveToRow = topLeftIndex;
+            moveToColumn = column;
+            Shift( valueMoved, moveToRow, moveToColumn, matrix );
         }
 
-        private int Shift(int nv, int ovRow, int ovCol, int[,] matrix)
+        private int Shift(int valueToWrite, int moveToRow, int moveToColumn, int[,] matrix)
         {
-            int ov = matrix[ovRow, ovCol];
-            matrix[ovRow, ovCol] = nv;
-            return ov;
+            int oldValue = matrix[moveToRow, moveToColumn];
+            matrix[moveToRow, moveToColumn] = valueToWrite;
+            return oldValue;
         }
 
         public static int[,] CreateSquareMatrix(int n, int startValue = 1, int increment = 1)
         {
             int[,] matrix = new int[n, n];
-            for (int row = 0; row < n; row++)
+            for (int row = 0 ; row < n ; row++)
             {
-                for (int column = 0; column < n; column++)
+                for (int column = 0 ; column < n ; column++)
                 {
                     matrix[row, column] = startValue;
                     startValue += increment;
@@ -68,9 +76,9 @@
         public static int[,] CreateSquareMatrixRotatedRight(int n, int startValue = 1, int increment = 1)
         {
             int[,] matrix = new int[n, n];
-            for (int column = n - 1; column >= 0; column--)
+            for (int column = n - 1 ; column >= 0 ; column--)
             {
-                for (int row = 0; row < n; row++)
+                for (int row = 0 ; row < n ; row++)
                 {
                     matrix[row, column] = startValue;
                     startValue += increment;
