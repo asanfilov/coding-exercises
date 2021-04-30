@@ -23,12 +23,23 @@ namespace CodingExercises.Arrays.Tests
 
         [TestCase( 13 )]
         [TestCase( 12 )]
-        public void RotateRight_Matrix(int size)
+        public void RotateRight(int size)
         {
             var matrix = SquareMatrixTransformer.CreateSquareMatrix( size );
             var matrixRotated = SquareMatrixTransformer.CreateSquareMatrixRotatedRight( size );
 
             smt.RotateRight( matrix, size );
+            Assert.AreEqual( matrixRotated, matrix );
+        }
+
+        [TestCase( 4 )]
+        [TestCase( 5 )]
+        public void ReferenceRotateRight(int size)
+        {
+            var matrix = SquareMatrixTransformer.CreateSquareMatrix( size );
+            var matrixRotated = SquareMatrixTransformer.CreateSquareMatrixRotatedRight( size );
+
+            smt.ReferenceRotateRight( matrix, size );
             Assert.AreEqual( matrixRotated, matrix );
         }
 

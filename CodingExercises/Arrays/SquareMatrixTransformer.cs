@@ -2,9 +2,34 @@
 {
     public class SquareMatrixTransformer
     {
+        public void ReferenceRotateRight(int[,] matrix, int n)
+        {
+            for (var layer = 0 ; layer < n / 2 ; ++layer)
+            {
+                var first = layer;
+                var last = n - 1 - layer;
+
+                for (var i = first ; i < last ; ++i)
+                {
+                    var offset = i - first;
+                    var top = matrix[first, i]; // save top
+                    // left -> top
+                    matrix[first, i] = matrix[last - offset, first];
+                    // bottom -> left
+                    matrix[last - offset, first] = matrix[last, last - offset];
+                    // right -> bottom
+                    matrix[last, last - offset] = matrix[i, last];
+                    // top -> right
+                    matrix[i, last] = top; // right <- saved top
+                }
+            }
+        }
+
         public void RotateRight(int[,] matrix, int size)
         {
+            //The square matrix of size N contains N/2 inner squares
             int innerSquares = size / 2;
+            // Perform circular rotation of each inner square by 90 degress by shifting each element clockwise
             int elementShift = size - 1;
             for (int squareId = 0 ; squareId < innerSquares ; squareId++)
             {
