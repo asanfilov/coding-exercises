@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 using NUnit.Framework;
 
@@ -9,17 +10,51 @@ namespace Interviews.Tests
     {
         private AmazingDrone drone;
 
+        private const int P = (int)AmazingDrone.GridObjects.ClearPath;
+        private const int W = (int)AmazingDrone.GridObjects.Wall;
+        private const int T = (int)AmazingDrone.GridObjects.Target;
+
         private List<List<int>> exampleGrid = new List<List<int>> {
-                new List<int> { (int)AmazingDrone.MapObjects.ClearPath, (int)AmazingDrone.MapObjects.ClearPath, (int)AmazingDrone.MapObjects.ClearPath},
-                new List<int> { (int)AmazingDrone.MapObjects.Wall, (int)AmazingDrone.MapObjects.Wall, (int)AmazingDrone.MapObjects.Target},
-                new List<int> { (int)AmazingDrone.MapObjects.ClearPath, (int)AmazingDrone.MapObjects.ClearPath , (int)AmazingDrone.MapObjects.ClearPath }
+                new List<int> { P, P, P},
+                new List<int> { W, W, T},
+                new List<int> { P, P, P }
             };
 
         [Test()]
-        public void GetShortestPathToTargetTest()
+        public void GetShortestPathToTarget_ExampleGrid()
         {
             drone = new AmazingDrone( exampleGrid );
             Assert.AreEqual( 3, drone.GetShortestPathToTarget() );
+        }
+
+        [Test()]
+        public void GetShortestPathToTarget_SquareMatrixOf1000()
+        {
+            int size = AmazingDrone.MaxGridSize;
+            var grid = AmazingDroneTestsHelper.GetGridWithSameValues( size, P );
+            grid[size - 1][size - 1] = T; //South-East corner
+            int shortest = 2 * (size - 1); //since can't move diagonally, count steps south and east
+
+            drone = new AmazingDrone( grid );
+
+            Assert.AreEqual( shortest, drone.GetShortestPathToTarget() );
+        }
+
+        [Test()]
+        public void GetShortestPathToTarget_SnakePattern()
+        {
+            var grid = new List<List<int>> {
+                new List<int> { P, P, P, P, P, P },
+                new List<int> { W, W, W, W, W, P },
+                new List<int> { P, P, P, P, P, P },
+                new List<int> { P, W, W, W, W, W },
+                new List<int> { P, P, P, P, P, P },
+                new List<int> { W, W, W, W, W, T }
+            };
+
+            drone = new AmazingDrone( grid );
+
+            Assert.AreEqual( 20, drone.GetShortestPathToTarget() );
         }
 
         [Test()]
@@ -33,9 +68,9 @@ namespace Interviews.Tests
         public void FindPathToTarget_NoPath()
         {
             List<List<int>> grid = new List<List<int>> {
-                new List<int> { (int)AmazingDrone.MapObjects.ClearPath, (int)AmazingDrone.MapObjects.Wall },
-                new List<int> { (int)AmazingDrone.MapObjects.ClearPath, (int)AmazingDrone.MapObjects.Wall },
-                new List<int> { (int)AmazingDrone.MapObjects.Wall, (int)AmazingDrone.MapObjects.Target }};
+                new List<int> { P, P },
+                new List<int> { P, W },
+                new List<int> { W, T }};
             drone = new AmazingDrone( grid );
             Assert.Null( drone.FindPathToTarget() );
         }
@@ -65,6 +100,21 @@ namespace Interviews.Tests
             drone = new AmazingDrone( exampleGrid );
             Assert.True( drone.IsValidStep( 0, 0 ) );
             Assert.True( drone.IsValidStep( 2, 1 ) );
+        }
+    }
+
+    internal class AmazingDroneTestsHelper
+    {
+        internal static List<List<int>> GetGridWithSameValues(int size, int value)
+        {
+            var grid = new List<List<int>>( size );
+            for (int row = 0 ; row < size ; row++)
+            {
+                List<int> columns = Enumerable.Repeat( value, size ).ToList();
+                grid.Add( columns );
+            }
+
+            return grid;
         }
     }
 }

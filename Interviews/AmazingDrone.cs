@@ -4,7 +4,9 @@ namespace Interviews
 {
     public class AmazingDrone
     {
-        public enum MapObjects
+        public const int MaxGridSize = 1000;
+
+        public enum GridObjects
         {
             ClearPath = 0,
             Target = 1,
@@ -79,7 +81,7 @@ namespace Interviews
 
         private bool IsTarget(PathCell current)
         {
-            return grid[current.Row][current.Column] == (int)MapObjects.Target;
+            return grid[current.Row][current.Column] == (int)GridObjects.Target;
         }
 
         private void EnqueueValidStep(PathCell adjacent, PathCell prev)
@@ -108,7 +110,7 @@ namespace Interviews
 
         private bool IsNotBlocked(int row, int col)
         {
-            return (grid[row][col] != (int)MapObjects.Wall);
+            return (grid[row][col] != (int)GridObjects.Wall);
         }
     }
 }
