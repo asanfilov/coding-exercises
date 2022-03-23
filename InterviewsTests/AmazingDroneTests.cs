@@ -15,21 +15,21 @@ namespace Interviews.Tests
         [Test()]
         public void GetShortestPathToTarget_ExampleGrid()
         {
-            var drone = new AmazingDrone( GetExampleGrid() );
-            Assert.AreEqual( 3, drone.GetShortestPathToTarget() );
+            var drone = new AmazingDrone(GetExampleGrid());
+            Assert.AreEqual(3, drone.GetShortestPathToTarget());
         }
 
         [Test()]
         public void GetShortestPathToTarget_SquareMatrixOf1000()
         {
             int size = AmazingDrone.MaxGridSize;
-            var grid = AmazingDroneTestsHelper.GetGridWithSameValues( size, P );
+            var grid = AmazingDroneTestsHelper.GetGridWithSameValues(size, P);
             grid[size - 1][size - 1] = T; //South-East corner
             int shortest = 2 * (size - 1); //since can't move diagonally, count steps south and east
 
-            var drone = new AmazingDrone( grid );
+            var drone = new AmazingDrone(grid);
 
-            Assert.AreEqual( shortest, drone.GetShortestPathToTarget() );
+            Assert.AreEqual(shortest, drone.GetShortestPathToTarget());
         }
 
         [Test()]
@@ -44,16 +44,16 @@ namespace Interviews.Tests
                 new List<int> { W, W, W, W, W, T }
             };
 
-            var drone = new AmazingDrone( grid );
+            var drone = new AmazingDrone(grid);
 
-            Assert.AreEqual( 20, drone.GetShortestPathToTarget() );
+            Assert.AreEqual(20, drone.GetShortestPathToTarget());
         }
 
         [Test()]
         public void FindPathToTarget_Exists()
         {
-            var drone = new AmazingDrone( GetExampleGrid() );
-            Assert.NotNull( drone.FindPathToTarget() );
+            var drone = new AmazingDrone(GetExampleGrid());
+            Assert.NotNull(drone.FindPathToTarget());
         }
 
         [Test()]
@@ -63,35 +63,35 @@ namespace Interviews.Tests
                 new List<int> { P, P },
                 new List<int> { P, W },
                 new List<int> { W, T }};
-            var drone = new AmazingDrone( grid );
-            Assert.Null( drone.FindPathToTarget() );
+            var drone = new AmazingDrone(grid);
+            Assert.Null(drone.FindPathToTarget());
         }
 
         [Test()]
         public void IsCellValid_IndexOutsideTheGrid_False()
         {
-            var drone = new AmazingDrone( GetExampleGrid() );
-            Assert.False( drone.IsValidStep( -1, 0 ) );
-            Assert.False( drone.IsValidStep( 0, -1 ) );
-            Assert.False( drone.IsValidStep( -1, -1 ) );
+            var drone = new AmazingDrone(GetExampleGrid());
+            Assert.False(drone.IsValidStep(-1, 0));
+            Assert.False(drone.IsValidStep(0, -1));
+            Assert.False(drone.IsValidStep(-1, -1));
 
-            Assert.False( drone.IsValidStep( 3, 0 ) );
-            Assert.False( drone.IsValidStep( 0, 3 ) );
+            Assert.False(drone.IsValidStep(3, 0));
+            Assert.False(drone.IsValidStep(0, 3));
         }
 
         [Test()]
         public void IsCellValid_Wall_False()
         {
-            var drone = new AmazingDrone( GetExampleGrid() );
-            Assert.False( drone.IsValidStep( 1, 0 ) );
+            var drone = new AmazingDrone(GetExampleGrid());
+            Assert.False(drone.IsValidStep(1, 0));
         }
 
         [Test()]
         public void IsCellValid_ClearPathOrTarget_True()
         {
-            var drone = new AmazingDrone( GetExampleGrid() );
-            Assert.True( drone.IsValidStep( 0, 0 ) );
-            Assert.True( drone.IsValidStep( 2, 1 ) );
+            var drone = new AmazingDrone(GetExampleGrid());
+            Assert.True(drone.IsValidStep(0, 0));
+            Assert.True(drone.IsValidStep(2, 1));
         }
 
         private static List<List<int>> GetExampleGrid()
@@ -107,11 +107,11 @@ namespace Interviews.Tests
         {
             internal static List<List<int>> GetGridWithSameValues(int size, int value)
             {
-                var grid = new List<List<int>>( size );
+                var grid = new List<List<int>>(size);
                 for (int row = 0 ; row < size ; row++)
                 {
-                    List<int> columns = Enumerable.Repeat( value, size ).ToList();
-                    grid.Add( columns );
+                    List<int> columns = Enumerable.Repeat(value, size).ToList();
+                    grid.Add(columns);
                 }
 
                 return grid;

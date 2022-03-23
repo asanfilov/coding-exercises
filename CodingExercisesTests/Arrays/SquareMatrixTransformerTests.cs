@@ -10,44 +10,44 @@ namespace CodingExercises.Arrays.Tests
         [Test()]
         public void RotateRight_Matrix5()
         {
-            smt.RotateRight( matrix5, 5 );
-            Assert.AreEqual( matrix5RotatedRight, matrix5 );
+            smt.RotateRight(matrix5, 5);
+            Assert.AreEqual(matrix5RotatedRight, matrix5);
         }
 
         [Test()]
         public void RotateRight_Matrix4()
         {
-            smt.RotateRight( matrix4, 4 );
-            Assert.AreEqual( matrix4RotatedRight, matrix4 );
+            smt.RotateRight(matrix4, 4);
+            Assert.AreEqual(matrix4RotatedRight, matrix4);
         }
 
-        [TestCase( 13 )]
-        [TestCase( 12 )]
+        [TestCase(13)]
+        [TestCase(12)]
         public void RotateRight(int size)
         {
-            var matrix = SquareMatrixTransformer.CreateSquareMatrix( size );
-            var matrixRotated = SquareMatrixTransformer.CreateSquareMatrixRotatedRight( size );
+            var matrix = SquareMatrixTransformer.CreateSquareMatrix(size);
+            var matrixRotated = SquareMatrixTransformer.CreateSquareMatrixRotatedRight(size);
 
-            smt.RotateRight( matrix, size );
-            Assert.AreEqual( matrixRotated, matrix );
+            smt.RotateRight(matrix, size);
+            Assert.AreEqual(matrixRotated, matrix);
         }
 
-        [TestCase( 4 )]
-        [TestCase( 5 )]
+        [TestCase(4)]
+        [TestCase(5)]
         public void ReferenceRotateRight(int size)
         {
-            var matrix = SquareMatrixTransformer.CreateSquareMatrix( size );
-            var matrixRotated = SquareMatrixTransformer.CreateSquareMatrixRotatedRight( size );
+            var matrix = SquareMatrixTransformer.CreateSquareMatrix(size);
+            var matrixRotated = SquareMatrixTransformer.CreateSquareMatrixRotatedRight(size);
 
-            smt.ReferenceRotateRight( matrix, size );
-            Assert.AreEqual( matrixRotated, matrix );
+            smt.ReferenceRotateRight(matrix, size);
+            Assert.AreEqual(matrixRotated, matrix);
         }
 
         [Test()]
         public void RotateRight_Matrix3()
         {
-            smt.RotateRight( matrix3, 3 );
-            Assert.AreEqual( matrix3RotatedRight, matrix3 );
+            smt.RotateRight(matrix3, 3);
+            Assert.AreEqual(matrix3RotatedRight, matrix3);
         }
 
         private int[,] matrix3 = new int[3, 3] {

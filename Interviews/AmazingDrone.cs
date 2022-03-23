@@ -28,7 +28,7 @@ namespace Interviews
             root.Previuos = null;
         }
 
-        private readonly PathCell root = new( 0, 0 );
+        private readonly PathCell root = new(0, 0);
         private readonly List<List<int>> grid;
         private readonly int rows;
         private readonly int columns;
@@ -57,22 +57,22 @@ namespace Interviews
             PathCell target = null;
 
             bfsQueue = new();
-            MarkVisited( root );
-            bfsQueue.Enqueue( root );
+            MarkVisited(root);
+            bfsQueue.Enqueue(root);
 
             PathCell current = root;
             while (bfsQueue.Count > 0)
             {
                 current = bfsQueue.Dequeue();
-                if (IsTarget( current ))
+                if (IsTarget(current))
                 {
                     return current;
                 }
 
-                EnqueueValidStep( current.South, current );
-                EnqueueValidStep( current.East, current );
-                EnqueueValidStep( current.North, current );
-                EnqueueValidStep( current.West, current );
+                EnqueueValidStep(current.South, current);
+                EnqueueValidStep(current.East, current);
+                EnqueueValidStep(current.North, current);
+                EnqueueValidStep(current.West, current);
             }
 
             return target;
@@ -94,13 +94,13 @@ namespace Interviews
 
         private void EnqueueValidStep(PathCell adjacent, PathCell prev)
         {
-            if (!IsValidStep( adjacent.Row, adjacent.Column )) return;
+            if (!IsValidStep(adjacent.Row, adjacent.Column)) return;
 
-            if (!IsVisited( adjacent ))
+            if (!IsVisited(adjacent))
             {
-                MarkVisited( adjacent );
+                MarkVisited(adjacent);
                 adjacent.Previuos = prev;
-                bfsQueue.Enqueue( adjacent );
+                bfsQueue.Enqueue(adjacent);
             }
         }
 
@@ -114,7 +114,7 @@ namespace Interviews
         /// </summary>
         public bool IsValidStep(int row, int col)
         {
-            return IsInsideGrid( row, col ) && IsNotBlocked( row, col );
+            return IsInsideGrid(row, col) && IsNotBlocked(row, col);
         }
 
         private bool IsInsideGrid(int row, int col)

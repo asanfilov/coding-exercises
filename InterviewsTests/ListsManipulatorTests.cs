@@ -15,7 +15,7 @@ namespace Interviews.Tests
 
             List<string> expected = new List<string> { "three", "six", "one" };
 
-            Assert.AreEqual( expected, ListsManipulator.Merge( original, addList, deleteList ) );
+            Assert.AreEqual(expected, ListsManipulator.Merge(original, addList, deleteList));
         }
 
         [Test]
@@ -27,7 +27,7 @@ namespace Interviews.Tests
 
             List<string> expected = new List<string> { "two", "one" };
 
-            Assert.AreEqual( expected, ListsManipulator.Merge( original, addList, deleteList ) );
+            Assert.AreEqual(expected, ListsManipulator.Merge(original, addList, deleteList));
         }
     }
 }

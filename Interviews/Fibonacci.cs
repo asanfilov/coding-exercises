@@ -19,7 +19,7 @@ namespace Interviews
             if (nth < 1 || nth > maxNumbersSupported)
             {
                 throw new ArgumentException(
-                    $"Please provide a positive value in the range [1..{maxNumbersSupported}]" );
+                    $"Please provide a positive value in the range [1..{maxNumbersSupported}]");
             }
 
             if (nth == 1)
@@ -37,7 +37,7 @@ namespace Interviews
             }
             else
             {
-                fibMemo[nth] = NthNumber( nth - 1 ) + NthNumber( nth - 2 );
+                fibMemo[nth] = NthNumber(nth - 1) + NthNumber(nth - 2);
                 return fibMemo[nth];
             }
         }

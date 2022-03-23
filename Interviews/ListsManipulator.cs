@@ -16,9 +16,9 @@ namespace Interviews
                                           List<string> added,
                                           List<string> removed)
         {
-            return original.Concat( added ).Except( removed ).Distinct()
-                .OrderByDescending( s => s.Length )
-                .ThenByDescending( s => s )
+            return original.Concat(added).Except(removed).Distinct()
+                .OrderByDescending(s => s.Length)
+                .ThenByDescending(s => s)
                 .ToList();
         }
     }

@@ -33,7 +33,7 @@
             int elementShift = size - 1;
             for (int squareId = 0 ; squareId < innerSquares ; squareId++)
             {
-                RotateSquareRight( squareId, elementShift, matrix );
+                RotateSquareRight(squareId, elementShift, matrix);
                 elementShift -= 2;
             }
         }
@@ -44,7 +44,7 @@
             int bottomRightindex = squareId + elementShift;
             for (int column = topLeftIndex ; column < bottomRightindex ; column++)
             {
-                ShiftElementsRight( topLeftIndex, column, elementShift, matrix );
+                ShiftElementsRight(topLeftIndex, column, elementShift, matrix);
             }
         }
 
@@ -58,23 +58,23 @@
             int moveToColumn = bottomRightindex;
             // Old column index becomes new row index in the last column:
             int moveToRow = column;
-            valueMoved = Shift( valueMoved, moveToRow, moveToColumn, matrix );
+            valueMoved = Shift(valueMoved, moveToRow, moveToColumn, matrix);
 
             // step 2: last column rotates to last row. Element with the last column index moves to the first position in the row
             moveToRow = bottomRightindex;
             // New column in this inner square is relative. Use 0-based indexing:
             moveToColumn = bottomRightindex - (column - topLeftIndex);
-            valueMoved = Shift( valueMoved, moveToRow, moveToColumn, matrix );
+            valueMoved = Shift(valueMoved, moveToRow, moveToColumn, matrix);
 
             // step 3: last row rotates to first column
             moveToRow = moveToColumn;
             moveToColumn = topLeftIndex;
-            valueMoved = Shift( valueMoved, moveToRow, moveToColumn, matrix );
+            valueMoved = Shift(valueMoved, moveToRow, moveToColumn, matrix);
 
             // step 4: first column rotates to first row
             moveToRow = topLeftIndex;
             moveToColumn = column;
-            Shift( valueMoved, moveToRow, moveToColumn, matrix );
+            Shift(valueMoved, moveToRow, moveToColumn, matrix);
         }
 
         private int Shift(int valueToWrite, int moveToRow, int moveToColumn, int[,] matrix)
