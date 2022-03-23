@@ -9,13 +9,12 @@ namespace Interviews
         public enum GridObjects
         {
             ClearPath = 0,
+            Visited = -1,
             Target = 1,
             Wall = 9
         }
 
         private Queue<PathCell> bfsQueue;
-
-        private HashSet<PathCell> visited;
 
         /// <summary>
         /// The drone must start from the top-left corner of the grid, which is always clear
@@ -56,9 +55,9 @@ namespace Interviews
         public PathCell FindPathToTarget()
         {
             PathCell target = null;
+
             bfsQueue = new();
-            visited = new HashSet<PathCell>();
-            visited.Add( root );
+            MarkVisited( root );
             bfsQueue.Enqueue( root );
 
             PathCell current = root;
@@ -79,6 +78,15 @@ namespace Interviews
             return target;
         }
 
+        private void MarkVisited(PathCell current)
+        {
+            int val = grid[current.Row][current.Column];
+            if (val != (int)GridObjects.Target)
+            {
+                grid[current.Row][current.Column] = (int)GridObjects.Visited;
+            }
+        }
+
         private bool IsTarget(PathCell current)
         {
             return grid[current.Row][current.Column] == (int)GridObjects.Target;
@@ -86,12 +94,19 @@ namespace Interviews
 
         private void EnqueueValidStep(PathCell adjacent, PathCell prev)
         {
-            if (!visited.Contains( adjacent ) && IsValidStep( adjacent.Row, adjacent.Column ))
+            if (!IsValidStep( adjacent.Row, adjacent.Column )) return;
+
+            if (!IsVisited( adjacent ))
             {
-                visited.Add( adjacent );
+                MarkVisited( adjacent );
                 adjacent.Previuos = prev;
                 bfsQueue.Enqueue( adjacent );
             }
+        }
+
+        private bool IsVisited(PathCell cell)
+        {
+            return grid[cell.Row][cell.Column] == (int)GridObjects.Visited;
         }
 
         /// <summary>
